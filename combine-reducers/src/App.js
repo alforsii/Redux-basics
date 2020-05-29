@@ -9,11 +9,11 @@ class App extends Component {
     return (
       <div className="App">
         <div className="age">
-          Your age: <span>{this.props.a}</span>
+           A: <span>{this.props.a}</span>
          <button className="ageUp" onClick={() => this.props.updateA(this.props.b)}>update A</button>
         </div>
         <div className="age">
-          Your age: <span>{this.props.b}</span>
+           B: <span>{this.props.b}</span>
          <button className="ageUp" onClick={() => this.props.updateB(this.props.a)}>update B</button>
         </div>
       </div>
