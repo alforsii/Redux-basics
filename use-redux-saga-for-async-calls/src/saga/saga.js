@@ -1,20 +1,35 @@
+// https://redux-saga.js.org/docs/introduction/
 import {
-takeLatest,
-takeEvery,
-// eslint-disable-next-line
-throttle,
-  delay, 
+  takeLatest,
+  takeEvery,
   put,
+  // eslint-disable-next-line
+  throttle,
+  // eslint-disable-next-line
+  delay, 
+  // eslint-disable-next-line
   call
 } from 'redux-saga/effects';
 
+
+//1. Using delay from 'redux-saga/effects'
+
 function* ageUpAsync() {
   yield put({type: 'LOADING'})
-  // yield delay(3000);
-  call(delay, 3000)
+  yield delay(3000);
+
   // type should be always different not to make infinite loop
   yield put({ type: 'AGE_UP_ASYNC', value: 1 });
 }
+
+// //2. Using custom delay()
+// const customDelay = (ms) => new Promise(res => setTimeout(res, ms))
+// function* ageUpAsync() {
+//   yield put({type: 'LOADING'})
+//   yield call(customDelay, 3000)
+//   // type should be always different not to make infinite loop
+//   yield put({ type: 'AGE_UP_ASYNC', value: 1 });
+// }
 // const delay = (ms) => new Promise(res => setTimeout(res, ms))
 // Instead of doing yield delay(3000), we're now doing yield call(delay, 3000). What's the difference?
 // In the first case, the yield expression delay(1000) is evaluated before it gets passed to the caller of next (the caller could be the middleware when running our code. It could also be our test code which runs the Generator function and iterates over the returned Generator). So what the caller gets is a Promise, like in the test code above.
