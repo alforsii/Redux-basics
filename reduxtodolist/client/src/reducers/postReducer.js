@@ -1,4 +1,4 @@
-import { GET_POSTS, ADD_POST, DELETE_POST, LOADING } from '../actions/types'
+import { GET_POSTS, ADD_POST, UPDATE_POST, DELETE_POST, LOADING } from '../actions/types'
 
 const initialState = {
     posts: [], 
@@ -21,11 +21,22 @@ export const postReducer = (state = initialState, action) => {
                 posts: [action.post, ...state.posts],
                 loading: false
             }
+        case UPDATE_POST:
+            return {
+                ...state,
+                posts: state.posts.map(post => {
+                    if(post._id === action.post._id) {
+                        post = action.post
+                    }
+                    return post
+                }),
+                loading: false
+            }
         case DELETE_POST:
             return {
                 ...state,
                 posts: state.posts.filter(
-                    post => post.id !== action.id
+                    post => post._id !== action.id
                 ),
                 loading: false
             }

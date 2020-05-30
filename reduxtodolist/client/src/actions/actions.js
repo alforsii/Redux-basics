@@ -1,13 +1,11 @@
 import axios from 'axios'
 
 import { ADD_POST, GET_POSTS, UPDATE_POST, DELETE_POST, LOADING } from './types'
-//https://jsonplaceholder.typicode.com/posts
-const myUrl = '/posts'
-const BASE_URL = process.env.REACT_APP_BASE_URL
 
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const service = axios.create({
     baseURL: BASE_URL,
-    // withCredentials: true
+    withCredentials: true
 })
 
 // @Method GET `/posts`
@@ -16,7 +14,7 @@ export const getPosts = () => dispatch => {
   let progress = 0
     console.log('getting Posts...')
     service.get(
-      myUrl,  {
+      '/posts',  {
         onDownloadProgress: function(event) {
           progress = Math.round((event.loaded * 100) / event.total);
           dispatch(loading('Getting posts, please wait...', progress))
@@ -37,7 +35,7 @@ export const addPost = (post) => dispatch => {
   let progress = 0
     console.log('adding Post...')
     dispatch(loading('Adding Post, please wait...', progress))
-    service.post(myUrl, post, {
+    service.post('/post/new', post, {
       onUploadProgress: (event) => {
        progress = Math.round((event.loaded * 100) / event.total);
         dispatch(loading('Adding Post, please wait...', progress))
@@ -54,11 +52,11 @@ export const addPost = (post) => dispatch => {
 
 // @Method PATCH `/posts/${id}`
 // @desc update post
-export const updatePost = (id) => dispatch => {
+export const updatePost = (id, updates) => dispatch => {
   let progress = 0
   console.log('updating Post...')
   dispatch(loading('Updating Post, please wait...', progress))
-  service.patch(`${myUrl}/${id}`, {
+  service.patch(`/post/${id}/update`, updates, {
     onUploadProgress: (event) => {
      progress = Math.round((event.loaded * 100) / event.total);
       dispatch(loading('Updating Post, please wait...', progress))
@@ -79,15 +77,15 @@ export const deletePost = (id) => dispatch => {
   let progress = 0
   console.log('deleting Post...')
   dispatch(loading('Removing Post, please wait...', progress))
-  service.delete(`${myUrl}/${id}`, {
+  service.delete(`/post/${id}/delete`, {
     onUploadProgress: (event) => {
      progress = Math.round((event.loaded * 100) / event.total);
       dispatch(loading('Removing Post, please wait...', progress))
     }
 })
-  .then(post => {
-  console.log("Output for: post", post)
-    return  dispatch({ type: DELETE_POST, id})
+  .then(data => {
+  console.log("Output for: post", data)
+    return  dispatch({ type: DELETE_POST, id: data.data.post._id})
   })
   .catch(err => {
     console.log(err)

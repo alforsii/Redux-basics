@@ -21,7 +21,10 @@ class App extends React.Component {
           <AddPostForm addPost={this.props.addPost} />
           <p>{this.props.loading && this.props.message}</p>
           <Progress strokeLinecap="square" percent={this.props.progress} />
-          <Posts posts={this.props.posts} deletePost={this.props.deletePost}/>
+          <Posts posts={this.props.posts} 
+          deletePost={this.props.deletePost}
+          updatePost={this.props.updatePost}
+          />
       </div>
     );
   }
@@ -43,6 +46,7 @@ const mapDispatchToProps = dispatch => {
     getPosts: () =>  dispatch(actions.getPosts()),
     addPost: (post) =>  dispatch(actions.addPost(post)),
     deletePost: (id) =>  dispatch(actions.deletePost(id)),
+    updatePost: (id, updates) =>  dispatch(actions.updatePost(id, updates)),
   })
 }
 
