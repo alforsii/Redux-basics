@@ -1,4 +1,4 @@
-import { GET_POSTS, ADD_POST, LOADING } from '../actions/types'
+import { GET_POSTS, ADD_POST, DELETE_POST, LOADING } from '../actions/types'
 
 const initialState = {
     posts: [], 
@@ -19,6 +19,14 @@ export const postReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: [action.post, ...state.posts],
+                loading: false
+            }
+        case DELETE_POST:
+            return {
+                ...state,
+                posts: state.posts.filter(
+                    post => post.id !== action.id
+                ),
                 loading: false
             }
         case LOADING:
