@@ -1,21 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 
 import './index.css';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import {store} from './store'
+import { store } from './store';
 
 ReactDOM.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  // </React.StrictMode>
-  ,
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
