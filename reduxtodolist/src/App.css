@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+}
+
+.App button {
+  padding: 10px;
+  border-radius: 5px 15px;
+  margin: 5px;
+  cursor: pointer;
+}
+.App button:focus {
+  outline: 0;
+}
