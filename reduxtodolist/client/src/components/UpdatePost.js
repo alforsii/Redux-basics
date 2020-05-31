@@ -12,6 +12,7 @@ class UpdatePost extends Component {
 
   handleSubmit = async () => {
     try {
+      this.setState({ loading: true });
       const { title, body } = this.state;
       await this.props.updatePost(this.props.post._id, { title, body });
 
@@ -36,8 +37,7 @@ class UpdatePost extends Component {
 
   handleChange = (e) => {
     e.persist();
-    console.log(this.title.value);
-    console.log(this.body.value);
+
     this.setState((prevState) => ({
       //1.using ref
       title: this.title.value,
@@ -54,10 +54,7 @@ class UpdatePost extends Component {
   };
 
   handleOk = () => {
-    this.setState({ loading: true });
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-    }, 3000);
+    this.setState({ loading: false, visible: false });
   };
 
   handleCancel = () => {
